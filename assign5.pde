@@ -566,26 +566,7 @@ void drawTimerUI(){
 	text(timeStringMin + ":" + timeString, 3, height + 3);
 
 	// Actual Time Text
-	if(gameTimer/60 >= 120){
-    color timeTextColor = #00ffff; 		// Requirement #5: Get the correct color using color getTimeTextColor(int frames)
-  	fill(timeTextColor);
-  }
-  if(gameTimer/60 < 120 && gameTimer/60 >= 60){
-    color timeTextColor = #ffffff;     
-    fill(timeTextColor);
-  }
-  if(gameTimer/60 < 60 && gameTimer/60 >= 30){
-    color timeTextColor = #ffcc00;     
-    fill(timeTextColor);
-  }
-  if(gameTimer/60 < 30 && gameTimer/60 > 10){
-    color timeTextColor = #ff6600;     
-    fill(timeTextColor);
-  }
-  if(gameTimer/60 < 10){
-    color timeTextColor = #ff0000;     
-    fill(timeTextColor);
-  }
+	fill(getTimeTextColor(gameTimer));
   text(timeStringMin + ":" + timeString, 0, height);
   
 }
@@ -611,18 +592,41 @@ String convertFramesToTimeString(int frames){	// Requirement #4
 }
 
 color getTimeTextColor(int frames){				// Requirement #5
-	return #ffffff;
+	if(gameTimer/60 >= 120){
+    return #00ffff;     
+  }
+  if(frames/60 < 120 && frames/60 >= 60){
+    return #ffffff;     
+  }
+  if(frames/60 < 60 && frames/60 >= 30){
+    return #ffcc00;     
+  }
+  if(frames/60 < 30 && frames/60 > 10){
+    return #ff6600; 
+  }
+  if(frames/60 < 10){
+    return #ff0000;     
+  }
+  return #ffffff;
 }
-
+/*
 int getEnemyIndexByRow(int row){				// Requirement #6
-
 		// HINT:
 		// - If there's a soldier in that row, return that soldier's index in soldierX/soldierY
 		// (for example, if soldierY[3] is in that row, return 3)
 		// - Return -1 if there's no soldier in that row
-
-	return -1;
-}
+  for(int i = 0; i < soldierY.length; i++)
+  {
+    if(row == soldierY[i])
+    {
+      return [i];
+    }
+    else
+    {
+  	  return -1;
+    }
+  }
+}*/
 
 void drawCaution(){								// Requirement #6
 
