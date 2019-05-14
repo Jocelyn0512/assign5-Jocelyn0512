@@ -2,7 +2,7 @@ PImage title, gameover, gamewin, startNormal, startHovered, restartNormal, resta
 PImage groundhogIdle, groundhogLeft, groundhogRight, groundhogDown;
 PImage bg, life, cabbage, soilEmpty, clock, caution, sweethome;
 PImage soldier;
-PImage[][] soils, stones;
+PImage[][] soils, stones; 
 PFont font;
 
 final int GAME_START = 0, GAME_RUN = 1, GAME_OVER = 2, GAME_WIN = 3;
