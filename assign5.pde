@@ -2,7 +2,7 @@ PImage title, gameover, gamewin, startNormal, startHovered, restartNormal, resta
 PImage groundhogIdle, groundhogLeft, groundhogRight, groundhogDown;
 PImage bg, life, cabbage, soilEmpty, clock, caution, sweethome;
 PImage soldier;
-PImage[][] soils, stones; 
+PImage[][] soils, stones;
 PFont font;
 
 final int GAME_START = 0, GAME_RUN = 1, GAME_OVER = 2, GAME_WIN = 3;
@@ -571,7 +571,7 @@ void drawTimerUI(){
 
 	// Time Text Shadow Effect - You don't have to change this!
 	fill(0, 120);
-	text(timeString, 3, height + 3);
+	text(timeStringMin + ":" + timeString, 3, height + 3);
 
 	// Actual Time Text
 	if(gameTimer/60 >= 120){
