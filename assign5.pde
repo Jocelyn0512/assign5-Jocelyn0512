@@ -306,10 +306,8 @@ void draw() {
 
 			// Requirement #3: Use boolean isHit(...) to detect collision
 			if(playerHealth < PLAYER_MAX_HEALTH
-			&& cabbageX[i] + SOIL_SIZE > playerX    // r1 right edge past r2 left
-		    && cabbageX[i] < playerX + SOIL_SIZE    // r1 left edge past r2 right
-		    && cabbageY[i] + SOIL_SIZE > playerY    // r1 top edge past r2 bottom
-		    && cabbageY[i] < playerY + SOIL_SIZE) { // r1 bottom edge past r2 top
+			&& isHit(cabbageX[i], cabbageY[i], SOIL_SIZE, SOIL_SIZE, playerX, playerY, SOIL_SIZE, SOIL_SIZE)) 
+      { 
 
 				playerHealth ++;
 				cabbageX[i] = cabbageY[i] = -1000;
@@ -325,12 +323,9 @@ void draw() {
     
 		// --- Requirement #3: Use boolean isHit(...) to detect clock <-> player collision
       if(gameTimer < GAME_INIT_TIMER
-      && clockX[i] + SOIL_SIZE > playerX    // r1 right edge past r2 left
-        && clockX[i] < playerX + SOIL_SIZE    // r1 left edge past r2 right
-        && clockY[i] + SOIL_SIZE > playerY    // r1 top edge past r2 bottom
-        && clockY[i] < playerY + SOIL_SIZE)  // r1 bottom edge past r2 top
+      && isHit(clockX[i], clockY[i], SOIL_SIZE, SOIL_SIZE, playerX, playerY, SOIL_SIZE, SOIL_SIZE))
       {
-        gameTimer += 900;
+        addTime(15*60);
         clockX[i] = clockY[i] = -1000;
       }
     }
@@ -453,11 +448,8 @@ void draw() {
 			image(soldier, soldierX[i], soldierY[i]);
 
 			// Requirement #3: Use boolean isHit(...) to detect collision
-			if(soldierX[i] + SOIL_SIZE > playerX    // r1 right edge past r2 left
-		    && soldierX[i] < playerX + SOIL_SIZE    // r1 left edge past r2 right
-		    && soldierY[i] + SOIL_SIZE > playerY    // r1 top edge past r2 bottom
-		    && soldierY[i] < playerY + SOIL_SIZE) { // r1 bottom edge past r2 top
-
+			if(gameTimer>0 && isHit(soldierX[i], soldierY[i], SOIL_SIZE, SOIL_SIZE, playerX, playerY, SOIL_SIZE, SOIL_SIZE)){
+      
 				playerHealth --;
 
 				if(playerHealth == 0){
@@ -579,19 +571,19 @@ void drawTimerUI(){
   	fill(timeTextColor);
   }
   if(gameTimer/60 < 120 && gameTimer/60 >= 60){
-    color timeTextColor = #ffffff;     // Requirement #5: Get the correct color using color getTimeTextColor(int frames)
+    color timeTextColor = #ffffff;     
     fill(timeTextColor);
   }
   if(gameTimer/60 < 60 && gameTimer/60 >= 30){
-    color timeTextColor = #ffcc00;     // Requirement #5: Get the correct color using color getTimeTextColor(int frames)
+    color timeTextColor = #ffcc00;     
     fill(timeTextColor);
   }
   if(gameTimer/60 < 30 && gameTimer/60 > 10){
-    color timeTextColor = #ff6600;     // Requirement #5: Get the correct color using color getTimeTextColor(int frames)
+    color timeTextColor = #ff6600;     
     fill(timeTextColor);
   }
   if(gameTimer/60 < 10){
-    color timeTextColor = #ff0000;     // Requirement #5: Get the correct color using color getTimeTextColor(int frames)
+    color timeTextColor = #ff0000;     
     fill(timeTextColor);
   }
   text(timeStringMin + ":" + timeString, 0, height);
@@ -599,10 +591,19 @@ void drawTimerUI(){
 }
 
 void addTime(float seconds){					// Requirement #2
+  gameTimer += seconds;
 }
 
 boolean isHit(float ax, float ay, float aw, float ah, float bx, float by, float bw, float bh){
-	return false;								// Requirement #3
+	if(ax + aw > bx    // r1 right edge past r2 left
+      && ax < bx + bw    // r1 left edge past r2 right
+      && ay + ah > by    // r1 top edge past r2 bottom
+      && ay < by + bh) { // r1 bottom edge past r2 top
+
+  return true;								// Requirement #3
+  } else{
+    return false;
+  }
 }
 
 String convertFramesToTimeString(int frames){	// Requirement #4
