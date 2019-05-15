@@ -472,14 +472,14 @@ void draw() {
 
 		// Requirement #6:
 		//   Call drawCaution() to draw caution sign
-    for(int i = 0; i < soldierX.length; i++)
+    /*for(int i = 0; i < soldierX.length; i++)
     {
       soldierRow = (int) soldierY[i] / SOIL_SIZE;
       if (soldierRow > playerRow + 4)
       {
         image(caution,soldierX[i],soldierY[i]-80);
       }
-    }
+    }*/
     drawCaution();
 		popMatrix();
 
@@ -621,25 +621,30 @@ int getEnemyIndexByRow(int row){				// Requirement #6
 		// - If there's a soldier in that row, return that soldier's index in soldierX/soldierY
 		// (for example, if soldierY[3] is in that row, return 3)
 		// - Return -1 if there's no soldier in that row
-  int a = -1;
-  for(int i = 0; i < soldierX.length; i++)
-  {  
-    soldierRow = (int) soldierY[i] / SOIL_SIZE;
-    if((row+5)*80 == soldierY[i])
-    {
-      a = i;
-    }
+  if((row+5)*80 == soldierY[0]){
+    return 0;
+  } else if ((row+5)*80 == soldierY[1]){
+    return 1;
+  } else if ((row+5)*80 == soldierY[2]){
+    return 2;
+  } else if ((row+5)*80 == soldierY[3]){
+    return 3;
+  } else if ((row+5)*80 == soldierY[4]){
+    return 4;
+  } else if ((row+5)*80 == soldierY[5]){
+    return 5;
+  } else {
+    return -1;
   }
-  return a;
 
 }
 
 void drawCaution(){								// Requirement #6
 
 	// Draw a caution sign above the enemy under the screen using int getEnemyIndexByRow(int row)  
-  if (getEnemyIndexByRow(soldierRow) != -1)
+  if (getEnemyIndexByRow(playerRow) != -1)
     {
-      image(caution,soldierX[getEnemyIndexByRow(soldierRow)],soldierY[getEnemyIndexByRow(soldierRow)]-80);
+      image(caution,soldierX[getEnemyIndexByRow(playerRow)],soldierY[getEnemyIndexByRow(playerRow)]-80);
     }
 		// HINT:
 		// - Use playerRow to calculate the row below the screen
