@@ -558,18 +558,18 @@ void drawDepthUI(){
 }
 
 void drawTimerUI(){
-	String timeString = nf ((gameTimer/60) % 60 , 2); // Requirement #4: Get the mm:ss string using String convertFramesToTimeString(int frames)
-  String timeStringMin = nf (floor(gameTimer/3600) , 2);
+	//String timeString = nf ((gameTimer/60) % 60 , 2); // Requirement #4: Get the mm:ss string using String convertFramesToTimeString(int frames)
+  //String timeStringMin = nf (floor(gameTimer/3600) , 2);
   
 	textAlign(LEFT, BOTTOM);
 
 	// Time Text Shadow Effect - You don't have to change this!
 	fill(0, 120);
-	text(timeStringMin + ":" + timeString, 3, height + 3);
+	text(convertFramesToTimeString(gameTimer), 3, height + 3);
 
 	// Actual Time Text
 	fill(getTimeTextColor(gameTimer));
-  text(timeStringMin + ":" + timeString, 0, height);
+  text(convertFramesToTimeString(gameTimer), 0, height);
   
 }
 
@@ -590,7 +590,11 @@ boolean isHit(float ax, float ay, float aw, float ah, float bx, float by, float 
 }
 
 String convertFramesToTimeString(int frames){	// Requirement #4
-  return "";
+  int mm = floor(frames/3600);
+  int ss = (frames/60) % 60;
+  String timeString = nf (ss , 2); // Requirement #4: Get the mm:ss string using String convertFramesToTimeString(int frames)
+  String timeStringMin = nf (mm , 2);
+  return timeStringMin + ":" + timeString;
 }
 
 color getTimeTextColor(int frames){				// Requirement #5
